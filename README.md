@@ -40,9 +40,15 @@ flowchart TD
     A[Initialization] --> B[For Each Iteration]
     B --> C[For Each Ant]
     C --> D[Construct Tour]
-    D --> E[Compute Tour Length]
-    E --> F[Update Best Tour]
-    F --> G[Update Pheromones]
-    G --> B
-    B --> H[End Iterations]
-    H --> I[Output Best Tour]
+    D --> E["Select Next City\n(Roulette Wheel Selection)"]
+    E --> F[Add City to Tour & Mark as Visited]
+    F --> G{Tour Complete?}
+    G -- No --> E
+    G -- Yes --> H[Compute Tour Length]
+    H --> I[Update Best Tour if Shorter]
+    I --> J[End Ant Loop]
+    J --> K[Update Pheromones Based on All Tours]
+    K --> B
+    B --> L[End Iteration Loop]
+    L --> M[Output Best Tour]
+
